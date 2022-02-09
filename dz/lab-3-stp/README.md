@@ -12,27 +12,27 @@
 Проверяем работоспособность собраной топологии:
 
 
-![](/picture/lab-3-spt/ping-S1-S2.jpg)
+![](/picture/ping-S1-S2.jpg)
 
-![](/picture/lab-3-spt/ping-S1-S3.jpg)
+![](/picture/ping-S1-S3.jpg)
 
-![](/picture/lab-3-spt/ping-S2-S3.jpg)
+![](/picture/ping-S2-S3.jpg)
 
 Отключаем все порты, и настраиваем транки:
 
-![](/picture/lab-3-spt/switchport-trunk.jpg)
+![](/picture/switchport-trunk.jpg)
 
 ## Часть 2: Определение корневого моста
 
 Включаем порты e0/0, e0/2 проверяем spt
 
-![](/picture/lab-3-spt/spt-e0_1-e0_3-shutdown.jpg)
+![](/picture/spt-e0_1-e0_3-shutdown.jpg)
 
-![](/picture/lab-3-spt/spt-S1.jpg)
+![](/picture/spt-S1.jpg)
 
-![](/picture/lab-3-spt/spt-S2.jpg)
+![](/picture/spt-S2.jpg)
 
-![](/picture/lab-3-spt/spt-S3.jpg)
+![](/picture/spt-S3.jpg)
 
 
 Коммутатор S1 в данной конфигурации выбрался Root bridge так как он имеет наименьший Bridge ID (по причине наименьшего MAC адреса из трех коммутаторов).
@@ -51,18 +51,18 @@ Alternate Port был назначен порту e0/2 коммутатора S3
 
 У коммутатора S3 заблокирован порт e0/2. Помимо заблокированного порта, единственным активным портом на этом коммутаторе является порт e0/0, выделенный в качестве порта Root. Уменьшим его стоимость.
 
-![](/picture/lab-3-spt/S3-cost-port-spt.jpg)
+![](/picture/S3-cost-port-spt.jpg)
 
 После этого на не корневых коммутаторах поменялось назначение портов так как стоимость путей стала разная и не смотря на то что Bridge ID у коммутатора S2 меньше чем у S3, порт e0/0 - S2 стал Alternate так как у него Cost выше чем у e0/0 - S3.
 
 
-![](/picture/lab-3-spt/spt-S2_2.jpg)
+![](/picture/spt-S2_2.jpg)
 
-![](/picture/lab-3-spt/spt-S3_2.jpg)
+![](/picture/spt-S3_2.jpg)
 
 Отменим изменение стоимость порта.
 
-![](/picture/lab-3-spt/S3-no-cost-port-spt.jpg)
+![](/picture/S3-no-cost-port-spt.jpg)
 
 
 ## Часть 4:	Наблюдение за процессом выбора протоколом STP порта, исходя из приоритета портов.
@@ -71,14 +71,14 @@ Alternate Port был назначен порту e0/2 коммутатора S3
 
 Включаем порты F0/1 и F0/3 на всех коммутаторах. Проверяем SPT.
 
-![](/picture/lab-3-spt/spt-S1-all-ports.jpg)
+![](/picture/spt-S1-all-ports.jpg)
 
-![](/picture/lab-3-spt/spt-S2-all-ports.jpg)
+![](/picture/spt-S2-all-ports.jpg)
 
-![](/picture/lab-3-spt/spt-S3-all-ports.jpg)
+![](/picture/spt-S3-all-ports.jpg)
 
 
-![](/picture/lab-3-spt/spt-all.jpg)
+![](/picture/spt-all.jpg)
 
 Порт e0/1 коммутатора S2 и порт e0/0 - S3 стали Root, так как имеют наименьший номер порта относительно соседних портов смотрящих на Root коммутатор.
 
