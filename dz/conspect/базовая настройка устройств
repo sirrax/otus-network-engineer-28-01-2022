@@ -1,0 +1,54 @@
+Базовые настройки
+
+1.Отключить поиск DNS
+(config)# no ip domain-lookup
+
+2.Присвоить имена устройствам в соответствии с топологией
+(config)# hostname S1
+
+3.Назначить class в качестве зашифрованного пароля доступа к привилегированному режиму
+(config)# enable secret class
+
+4.Назначьте cisco в качестве паролей консоли и VTY и активируйте вход для консоли и VTY каналов
+(config)# line console 0 
+(config-line)# password cisco 
+(config-line)# login
+(config-line)# login
+
+#show line
+
+(config)# line vty 0 15
+(config-line)# password cisco 
+(config-line)# login 
+(config-line)# end
+
+Чтобы зашифровать все пароли открытого текста
+(config)# service password-encryption
+
+5.Настроить logging synchronous для консольного канала, чтобы консольные сообщения не прерывали выполнение команд
+(config)# line con 0
+(config-line)# logging synchronous
+
+6.Настроить баннерное сообщение дня (MOTD) для предупреждения пользователей о запрете несанкционированного доступа.
+(config)# banner motd  #Warning! Authorized access only!#
+
+7.Скопировать текущую конфигурацию в файл загрузочной конфигурации.
+#copy running-config startup-config
+
+
+
+Задайте IP-адрес, указанный в таблице адресации для VLAN 1 
+
+S1(config)# interface vlan 1
+S1(config-if)# ip add 192.168.1.1 255.255.255.0
+S1(config-if)# no shut
+S1(config-if)# exit
+
+
+
+
+
+
+
+
+
