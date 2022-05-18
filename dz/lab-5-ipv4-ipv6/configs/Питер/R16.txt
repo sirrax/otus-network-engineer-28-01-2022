@@ -1,0 +1,120 @@
+R16#show runn
+R16#show running-config
+Building configuration...
+
+Current configuration : 1268 bytes
+!
+! Last configuration change at 22:47:37 EET Mon May 16 2022
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R16
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+clock timezone EET 2 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ ip address 10.10.20.17 255.255.255.252
+ ipv6 address FE80::16 link-local
+ ipv6 address 2001:10:20:16::17/64
+!
+interface Ethernet0/1
+ ip address 10.10.20.5 255.255.255.252
+ ipv6 address FE80::16 link-local
+ ipv6 address 2001:10:20:4::5/64
+!
+interface Ethernet0/2
+ ip address 10.10.20.22 255.255.255.252
+ ipv6 address FE80::16 link-local
+ ipv6 address 2001:10:20:20::22/64
+!
+interface Ethernet0/3
+ ip address 10.10.20.9 255.255.255.252
+ ipv6 address FE80::16 link-local
+ ipv6 address 2001:10:20:8::9/64
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+!
+end
+
+R16#

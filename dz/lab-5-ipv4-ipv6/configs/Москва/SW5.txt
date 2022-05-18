@@ -1,0 +1,138 @@
+SW5#sh run
+Building configuration...
+
+Current configuration : 1980 bytes
+!
+! Last configuration change at 11:33:22 EET Wed May 18 2022
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW5
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+clock timezone EET 2 0
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+spanning-tree vlan 20 priority 24576
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 20.20.20.20 255.255.255.255
+!
+interface Port-channel1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/0
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface Ethernet0/3
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface Ethernet1/0
+ no switchport
+ ip address 10.10.10.37 255.255.255.252
+ duplex auto
+ ipv6 address FE80::5 link-local
+ ipv6 address 2001:10:10:36::37/64
+!
+interface Ethernet1/1
+ no switchport
+ ip address 10.10.10.30 255.255.255.252
+ duplex auto
+ ipv6 address FE80::5 link-local
+ ipv6 address 2001:10:10:28::30/64
+!
+interface Ethernet1/2
+ switchport access vlan 22
+ switchport mode access
+!
+interface Ethernet1/3
+!
+interface Vlan10
+ ip address 192.168.10.3 255.255.255.0
+ standby 1 ip 192.168.10.1
+ standby 1 preempt
+!
+interface Vlan20
+ ip address 192.168.20.3 255.255.255.0
+ standby 2 ip 192.168.20.1
+ standby 2 priority 110
+ standby 2 preempt
+!
+interface Vlan22
+ ip address 192.168.22.22 255.255.255.0
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+!
+!
+end
+
+SW5#
+
