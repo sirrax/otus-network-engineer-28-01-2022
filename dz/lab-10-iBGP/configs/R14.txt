@@ -1,0 +1,167 @@
+R14#sh running-config
+Building configuration...
+
+Current configuration : 2355 bytes
+!
+! Last configuration change at 21:52:40 EET Wed Jun 22 2022
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R14
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+clock timezone EET 2 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 14.14.14.14 255.255.255.255
+ ip ospf 1 area 0
+!
+interface Ethernet0/0
+ ip address 10.10.10.6 255.255.255.252
+ ipv6 address FE80::14 link-local
+ ipv6 address 2001:10:10:4::6/64
+ ipv6 ospf 1 area 10
+!
+interface Ethernet0/1
+ ip address 10.10.10.9 255.255.255.252
+ ipv6 address FE80::14 link-local
+ ipv6 address 2001:10:10:8::9/64
+ ipv6 ospf 1 area 10
+!
+interface Ethernet0/2
+ ip address 100.100.100.1 255.255.255.252
+ ipv6 address FE80::14 link-local
+ ipv6 address 2001:100:100::1/64
+!
+interface Ethernet0/3
+ ip address 10.10.10.2 255.255.255.252
+ ipv6 address FE80::14 link-local
+ ipv6 address 2001:10:10::2/64
+ ipv6 ospf 1 area 101
+!
+interface Ethernet1/0
+ ip address 10.10.10.41 255.255.255.252
+ ipv6 address FE80::14 link-local
+ ipv6 address 2001:10:10:40::41/64
+ ipv6 ospf 1 area 0
+!
+interface Ethernet1/1
+ no ip address
+ shutdown
+!
+interface Ethernet1/2
+ no ip address
+ shutdown
+!
+interface Ethernet1/3
+ no ip address
+ shutdown
+!
+router ospf 1
+ router-id 14.14.14.14
+ area 101 stub no-summary
+ network 10.10.10.0 0.0.0.3 area 101
+ network 10.10.10.4 0.0.0.3 area 10
+ network 10.10.10.8 0.0.0.3 area 10
+ network 10.10.10.40 0.0.0.3 area 0
+ default-information originate always
+!
+router bgp 1001
+ bgp router-id 14.14.14.14
+ bgp log-neighbor-changes
+ network 10.10.10.0 mask 255.255.255.0
+ network 100.100.100.0 mask 255.255.255.252
+ neighbor 15.15.15.15 remote-as 1001
+ neighbor 15.15.15.15 update-source Loopback0
+ neighbor 100.100.100.2 remote-as 101
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip route 10.10.10.0 255.255.255.0 Null0
+!
+ipv6 router ospf 1
+ area 101 stub no-summary
+ default-information originate always
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+!
+end
+
+R14#
